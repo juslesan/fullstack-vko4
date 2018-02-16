@@ -1,0 +1,32 @@
+{
+  "name": "fullstack-vko4",
+  "version": "1.0.0",
+  "description": "vko4",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juslesan/fullstack-vko4.git"
+  },
+  "author": "Santeri Juslenius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juslesan/fullstack-vko4/issues"
+  },
+  "homepage": "https://github.com/juslesan/fullstack-vko4#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.6"
+  },
+  "devDependencies": {
+    "jest": "^22.3.0",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.15.0"
+  }
+}
