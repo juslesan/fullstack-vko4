@@ -1,4 +1,5 @@
 POST http://localhost:3003/api/blogs
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFydG8iLCJpZCI6IjVhODg2NjNiZjBhZTEzMmQ4MTc2ZjgzZiIsImlhdCI6MTUxODg5NjI3Mn0.RouBHQChsmw-hmAIjEinT9TUQMSUL1SForbt3OUj624
 
-{ "title": "Arton seikkailut", "author": "Matti", "url": "jotaijotai.com", "likes": 3 }
+{ "title": "Arton seikkailut", "author": "Matti", "url": "jotaijotai.com", "likes": 3, "user": "5a88663bf0ae132d8176f83f" }

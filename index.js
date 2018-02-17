@@ -6,6 +6,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const config = require('./utils/config')
 
@@ -17,7 +19,8 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use(middleware.logger)
 app.use('/api/blogs', blogsRouter)
-
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 const server = http.createServer(app)
 
