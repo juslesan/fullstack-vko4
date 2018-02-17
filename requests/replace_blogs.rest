@@ -1,0 +1,7 @@
+PUT http://localhost:3003/api/blogs/5a8853b7cf822b2643ba0a30
+content-type: application/json
+
+
+{
+"title": "Matin seikkailut", "author": "Arto", "url": "jotaijotani.com", "likes": 4
+}
