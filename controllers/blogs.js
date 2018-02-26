@@ -18,7 +18,8 @@ const formatBlog = (blog) => {
       title: blog.title,
       author: blog.author,
       url: blog.url,
-      likes: blog.likes
+      likes: blog.likes,
+      
     }
   }
 
@@ -26,7 +27,7 @@ const formatBlog = (blog) => {
     const blogs = await Blog.find({})
     .populate('user', { username: 1, name: 1 })
 
-    response.json((blogs.map(formatBlog)))
+    response.json(blogs)
 
   })
   
@@ -58,7 +59,7 @@ const formatBlog = (blog) => {
         author: body.author,
         url: body.url,
         likes: body.likes === undefined ? 0 : body.likes,
-        user: user._id 
+        user: user
       })
       const savedBlog = await blog.save()
       user.blogs = user.blogs.concat(savedBlog._id)
@@ -78,10 +79,24 @@ const formatBlog = (blog) => {
 })
 
   blogsRouter.delete('/:id', async (request, response) => {
+    const body = request.body
     try {
-      await Blog.findByIdAndRemove(request.params.id)
-  
+      console.log('1')
+      const token = getTokenFrom(request)
+      console.log('2')
+      console.log(token)
+      const decodedToken = jwt.verify(token, process.env.SECRET)
+      console.log('3')
+
+      if (!token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+      }
+      const deletedBlog = await Blog.findByIdAndRemove(request.params.id)
+      // const user = await User.findById(deletedBlog.user._id)
+      // user.blogs = user.blogs.delete(deletedBlog._id)
+      // await user.save()
       response.status(204).end()
+
     } catch (exception) {
       console.log(exception)
       response.status(400).send({ error: 'malformatted id' })
@@ -96,12 +111,14 @@ const formatBlog = (blog) => {
       author: body.author,
       url: body.url,
       likes:  body.likes,
+      user: body.user
     }
   
     Blog
       .findByIdAndUpdate(request.params.id, blog, { new: true })
+      
       .then(updatedBlog => {
-        response.json(formatBlog(updatedBlog))
+        response.json(updatedBlog)
       })
       .catch(error => {
         console.log(error)

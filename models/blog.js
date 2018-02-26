@@ -10,12 +10,12 @@ const blogSchema = mongoose.Schema({
 
   blogSchema.statics.format = (blog) => {
     return {
+      _id: blog._id,
       title: blog.title,
       author: blog.author,
       url: blog.url,
       likes: blog.likes,
-      user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-  
+      user: blog.user
     }
   }
   
