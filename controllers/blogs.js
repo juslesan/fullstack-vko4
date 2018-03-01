@@ -103,7 +103,7 @@ const formatBlog = (blog) => {
     }
   })
 
-  blogsRouter.put('/:id', (request, response) => {
+  blogsRouter.put('/:id', async (request, response) => {
     const body = request.body
   
     const blog = {
@@ -113,17 +113,15 @@ const formatBlog = (blog) => {
       likes:  body.likes,
       user: body.user
     }
-  
-    Blog
-      .findByIdAndUpdate(request.params.id, blog, { new: true })
-      
-      .then(updatedBlog => {
-        response.json(updatedBlog)
-      })
-      .catch(error => {
-        console.log(error)
-        response.status(400).send({ error: 'malformatted id' })
-      })
+
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+      // .catch(error => {
+      //   console.log(error)
+      //   response.status(400).send({ error: 'malformatted id' })
+      // })
+      .populate('user', { username: 1, name: 1 })
+      response.json(updatedBlog)
+
   })
 
   module.exports = blogsRouter
